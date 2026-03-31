@@ -1,0 +1,659 @@
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== THEME ===== */
+:root {
+  --bg: #0f1117;
+  --bg-soft: #161a22;
+  --card: rgba(20, 24, 32, 0.85);
+
+  --accent: #00ffd5;
+  --accent-soft: #00ffd533;
+  --accent-glow: 0 0 10px #00ffd5;
+
+  --text: #e6f1ff;
+  --text-dim: #8b9bb4;
+
+  --border: rgba(0, 255, 213, 0.25);
+}
+
+/* ===== BODY ===== */
+body {
+  font-family: 'Press Start 2P', cursive;
+  background: radial-gradient(circle at top, #111827, #05070c);
+  color: var(--text);
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 12px 20px;
+  margin-bottom: 20px;
+
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* ===== BUTTON ===== */
+button {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+
+  padding: 8px 14px;
+
+  background: rgba(0,255,213,0.05);
+  color: var(--accent);
+
+  border: 1px solid transparent; /* 🔥 remove hard lines */
+  border-radius: 6px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: rgba(0,255,213,0.15);
+  box-shadow: 0 2px 10px rgba(0,255,213,0.2);
+}
+
+/* ===== INPUT ===== */
+input, select {
+  padding: 10px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background: rgba(20, 24, 32, 0.6);
+
+  border: 1px solid transparent; /* 🔥 remove harsh border */
+  border-radius: 10px;
+
+  padding: 18px;
+  margin-top: 14px;
+
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  background: rgba(20, 24, 32, 0.9);
+  box-shadow: 0 4px 20px rgba(0,255,213,0.15); /* 🔥 softer glow */
+}
+
+/* ===== SONG CARD ===== */
+.song-card {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.song-card img {
+  width: 70px;
+  height: 70px;
+  border-radius: 10px;
+  border: none; /* 🔥 remove border */
+}
+
+/* ===== PLAYER ===== */
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  height: 70px;
+
+  background: #0a0a0a;
+  border-top: 1px solid #00ffd533;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+.player-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LEFT */
+.player-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 30%;
+}
+
+.player-left img {
+  width: 50px;
+  height: 50px;
+  border-radius: 6px;
+}
+
+/* ===== SEEK BAR ===== */
+.seek-bar {
+  width: 100%;
+  height: 5px;
+  background: #222;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.seek-progress {
+  height: 100%;
+  background: #00ffd5;
+  border-radius: 5px;
+}
+
+.time {
+  font-size: 10px;
+  margin-top: 4px;
+  color: #aaa;
+}
+
+/* ===== AUTH ===== */
+.auth-screen {
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  /* 🔥 BACKGROUND IMAGE */
+  background: url('/pixel gif.gif') center/cover no-repeat;
+
+  position: relative;
+}
+
+.auth-screen::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.65); /* 🔥 adjust darkness */
+}
+
+.auth-screen > * {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-screen h1 {
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px #00ffd5;
+}
+
+.auth-screen .card {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* 🔥 CARD */
+.auth-card {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+
+  border-radius: 14px;
+  padding: 30px;
+
+  width: 320px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+
+/* TITLE */
+.auth-title {
+  text-align: center;
+  font-size: 16px;
+}
+
+/* FORM */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* INPUT */
+.auth-form input {
+  width: 100%;
+  padding: 10px;
+
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.1);
+
+  background: rgba(255,255,255,0.08);
+  color: white;
+}
+
+/* BUTTON GROUP */
+.auth-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+/* BUTTON SIZE FIX */
+.auth-actions button {
+  flex: 1;
+}
+
+
+/* ===== APP LAYOUT ===== */
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 200px;
+  background: rgba(0,0,0,0.6); /* 🔥 softer */
+  border-right: 1px solid rgba(255,255,255,0.05); /* subtle */
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  padding: 20px;
+}
+
+.sidebar > div:last-child {
+  margin-top: auto; /* pushes logout down */
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
+  color: var(--accent);
+}
+
+.sidebar button {
+  width: 100%;
+  text-align: left;
+  border: none; /* 🔥 key change */
+}
+
+/* ===== MAIN ===== */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  padding-bottom: 100px;
+  overflow-y: auto;
+}
+
+.sidebar button:hover {
+  background: rgba(0,255,213,0.08);
+}
+
+.download-btn {
+  margin-left: 10px;
+  padding: 4px 8px;
+
+  border: 1px solid var(--border);
+  color: var(--accent);
+
+  text-decoration: none;
+  font-size: 10px;
+}
+
+.download-btn:hover {
+  background: var(--accent-soft);
+  box-shadow: var(--accent-glow);
+}
+
+/* ===== FULL SCREEN PLAYER ===== */
+.now-playing {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle, #0f172a, #020617);
+  z-index: 999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.now-header {
+  padding: 20px;
+}
+
+.now-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.now-cover {
+  width: 280px;
+  height: 280px;
+  border-radius: 12px;
+  box-shadow: 0 0 40px #00ffd5;
+}
+
+/* BACK BUTTON */
+
+.back-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.rec-popup {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+
+  width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+
+  background: #000;
+  border: 2px solid #00ffcc;
+  padding: 10px;
+
+  z-index: 2000;
+}
+
+.rec-popup-item {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.song-meta {
+  display: flex;
+  flex-direction: column;
+  /* 🔥 THE SECRET TRICK: Forces the flex item to respect the parent's width */
+  min-width: 0; 
+  width: 100%;
+}
+
+.song-title {
+  font-size: 13px;
+  color: var(--text);
+  
+  /* 🔥 THE TRUNCATION TRIO */
+  white-space: nowrap;       /* Keeps text on a single line */
+  overflow: hidden;          /* Hides anything that goes past the edge */
+  text-overflow: ellipsis;   /* Adds the "..." at the end */
+}
+
+.song-artist {
+  font-size: 10px;
+  color: var(--text-dim);
+  
+  /* Add it to the artist too, just in case! */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* CENTER */
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+
+.player-center button {
+  margin-bottom: 5px;
+}
+
+.player-meta .title {
+  font-size: 12px;
+  color: #fff;
+}
+
+.player-meta .artist {
+  font-size: 10px;
+  color: #888;
+}
+
+.controls button {
+  font-size: 14px;
+}
+
+.controls-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.progress-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+/* RIGHT */
+.player-right {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  width: 30%;
+}
+
+.player-right input {
+  width: 80px;
+}
+
+.logout-btn {
+  margin-top: 10px;
+  border-color: #ff4d4d;
+  color: #ff4d4d;
+}
+
+.logout-btn:hover {
+  background: #ff4d4d;
+  color: black;
+}
+
+.rec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.rec-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.rec-info {
+  margin-bottom: 10px;
+}
+
+.rec-meta {
+  font-size: 10px;
+  color: #888;
+}
+
+/* PANEL */
+.genre-panel {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+
+  border: 2px solid #00ffcc55;
+  box-shadow: 0 0 25px #00ffcc33;
+
+  padding: 40px 50px;
+  border-radius: 12px;
+
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* TITLE */
+.genre-panel h2 {
+  margin-bottom: 25px;
+  text-shadow: 0 0 10px #00ffcc;
+}
+
+/* BUTTON GROUP */
+.genre-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+/* BUTTONS */
+.genre-buttons button {
+  padding: 10px 16px;
+  border: 2px solid #00ffcc;
+  background: transparent;
+  color: #00ffcc;
+
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+
+  transition: all 0.2s ease;
+}
+
+.genre-buttons button:hover {
+  background: #00ffcc;
+  color: black;
+  transform: translateY(-2px);
+}
+
+/* EXPLORE BUTTON */
+.explore-btn {
+  margin-top: 10px;
+
+  padding: 10px 20px;
+  border: 2px solid #00ffcc;
+
+  background: linear-gradient(45deg, #00ffcc22, #00ffcc55);
+  color: #00ffcc;
+
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+
+  box-shadow: 0 0 10px #00ffcc33;
+}
+
+.explore-btn:hover {
+  background: #00ffcc;
+  color: black;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 🔥 FORCE REMOVE DEFAULT STYLE */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 120px;
+  height: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* TRACK */
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  background: linear-gradient(
+    to right,
+    #00ffcc var(--value, 50%),
+    #222 var(--value, 50%)
+  );
+  border: 2px solid #00ffcc;
+  border-radius: 4px;
+}
+
+/* THUMB */
+/* 🔥 FIXED RETRO THUMB */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 16px;
+  height: 14px;
+
+  background: #00ffcc;
+  border: 3px solid #0a0a0a; /* thicker border = pixel feel */
+
+  border-radius: 4px; /* 🔥 square-ish instead of circle */
+
+  box-shadow:
+    0 0 6px #00ffcc55,
+    inset 0 0 2px #000;
+
+  margin-top: -6px; /* 🔥 better vertical alignment */
+
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+  transform: scale(1.1);
+}
+
+/* 🔥 FIREFOX FIX */
+input[type="range"]::-moz-range-track {
+  background: #222;
+  border: 2px solid #00ffcc;
+  height: 6px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  background: #00ffcc;
+  border: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.with-now-playing {
+  display: grid;
+  grid-template-columns: 200px 1fr 260px;
+}
+
