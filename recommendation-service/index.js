@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to same DB (simple approach)
-mongoose.connect('mongodb://100.48.75.157:27017/music');
+mongoose.connect('mongodb://mongodb:27017/sonicnode');
 
 // Song schema (same as music-service)
 const Song = mongoose.model('Song', {

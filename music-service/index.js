@@ -10,7 +10,7 @@ app.use(express.json());
 app.use('/images', express.static('uploads/images'));
 app.use('/uploads', express.static('uploads'));
 
-mongoose.connect('mongodb://100.48.75.157:27017/music');
+mongoose.connect('mongodb://mongodb:27017/sonicnode');
 
 let currentSongOfTheDay = null;
 
