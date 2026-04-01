@@ -45,10 +45,12 @@
 
     # ... (keep all your existing docker installation tasks above this) ...
 
-    - name: Copy project files to the server
-      copy:
-        src: ../
+    - name: Clone project directly from GitHub
+      git:
+        repo: https://github.com/elhananmajaw10/SonicNode.git
         dest: /home/ubuntu/sonicnode
+        version: main
+        force: yes
 
     - name: Start the SonicNode application
       command: docker compose up -d --build
