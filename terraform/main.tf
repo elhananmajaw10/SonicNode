@@ -16,7 +16,7 @@ data "aws_ami" "ubuntu" {
 
 # 3. Create a Firewall (Security Group) to let traffic in
 resource "aws_security_group" "sonicnode_sg" {
-  name        = "sonicnode_sg"
+  name        = "sonicnode_sg_v2"
   description = "Allow SSH and App traffic"
 
   # Allow SSH to log in (Port 22)
