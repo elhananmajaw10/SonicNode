@@ -45,6 +45,11 @@
 
     # ... (keep all your existing docker installation tasks above this) ...
 
+    - name: Clean up old project directory
+      file:
+        path: /home/ubuntu/sonicnode
+        state: absent
+
     - name: Clone project directly from GitHub
       git:
         repo: https://github.com/elhananmajaw10/SonicNode.git
