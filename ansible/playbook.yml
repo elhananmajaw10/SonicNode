@@ -42,3 +42,15 @@
         name: docker
         state: started
         enabled: yes
+
+    # ... (keep all your existing docker installation tasks above this) ...
+
+    - name: Copy project files to the server
+      copy:
+        src: ../
+        dest: /home/ubuntu/sonicnode
+
+    - name: Start the SonicNode application
+      command: docker compose up -d --build
+      args:
+        chdir: /home/ubuntu/sonicnode

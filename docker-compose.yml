@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    restart: always
+
+  music-service:
+    build: ./music-service
+    ports:
+      - "3001:3001"
+    restart: always
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "3002:3002"
+    restart: always
+
+  playlist-service:
+    build: ./playlist-service
+    ports:
+      - "3003:3003"
+    restart: always
+
+  recommendation-service:
+    build: ./recommendation-service
+    ports:
+      - "3004:3004"
+    restart: always
