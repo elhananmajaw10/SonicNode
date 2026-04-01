@@ -49,7 +49,7 @@ resource "aws_instance" "sonicnode_server" {
   ami             = data.aws_ami.ubuntu.id
   instance_type   = "t3.micro"
   security_groups = [aws_security_group.sonicnode_sg.name]
-
+  key_name        = aws_key_pair.sonicnode_key.key_name
   tags = {
     Name = "SonicNode-Production-Server"
   }
@@ -58,4 +58,10 @@ resource "aws_instance" "sonicnode_server" {
 # 5. Print the server's public IP address so we can see it!
 output "server_public_ip" {
   value = aws_instance.sonicnode_server.public_ip
+}
+
+# Create the SSH Lock for the server
+resource "aws_key_pair" "sonicnode_key" {
+  key_name   = "sonicnode-deploy-key"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDSXucTyNLyj88xX/FRRV+vWhoe42mO/qauXSWSW0X/Cu5b+xDCyqT6EeTdw57R7jpTGfF/3WA0JNoGWDWD31AxO7Nf5kgt5w111ScASSDZ4UrlQGOs7tcsSV2fPWLh5/4EFYAP0+2LiFeLqP0qaaMoAFtWCGTgIOKujcACVCyZ35h0XZejLG8sGLwM8k4sE1OXz8UakKjuW/ActEDaA/EA2lHsBBA+AuFGsDDmGneSLezD+faJ2s3BClVJJVmxKNCP/wTrIAM+90vkXnMTk2mOlLMVG3J5ay4MJKCUcToGMuOCNt0CxoY/3ipIQgj++L2aq16wskPrLkMRpJMWjYk9 user@Elhanan" 
 }
