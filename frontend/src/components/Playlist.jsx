@@ -13,16 +13,16 @@ function Playlist({ loggedInUser, setCurrentSong, setIsPlaying }) {
   const [openPlaylist, setOpenPlaylist] = useState(null); // NEW — modal state
 
   const fetchSongs = async () => {
-    const res = await axios.get('http://localhost:3001/songs');
+    const res = await axios.get('http://100.48.75.157:3001/songs');
     setSongs(res.data);
   };
 
   const fetchPlaylists = async () => {
     if (loggedInUser) {
-      const res = await axios.get(`http://localhost:3003/playlist/${loggedInUser}`);
+      const res = await axios.get(`http://100.48.75.157:3003/playlist/${loggedInUser}`);
       setPlaylists(res.data);
     } else {
-      const res = await axios.get('http://localhost:3003/playlist');
+      const res = await axios.get('http://100.48.75.157:3003/playlist');
       setPlaylists(res.data);
     }
   };
@@ -34,7 +34,7 @@ function Playlist({ loggedInUser, setCurrentSong, setIsPlaying }) {
 
   const createPlaylist = async () => {
     if (!name) return;
-    await axios.post('http://localhost:3003/playlist', {
+    await axios.post('http://100.48.75.157:3003/playlist', {
       name,
       owner: loggedInUser || 'guest'
     });
@@ -45,7 +45,7 @@ function Playlist({ loggedInUser, setCurrentSong, setIsPlaying }) {
   const addSong = async () => {
     if (!selectedPlaylist || !songId) return;
     const res = await axios.post(
-      `http://localhost:3003/playlist/${selectedPlaylist}/add`,
+      `http://100.48.75.157:3003/playlist/${selectedPlaylist}/add`,
       { songId, username: loggedInUser || 'guest' }
     );
     if (res.data === "Not authorized") {
@@ -61,7 +61,7 @@ function Playlist({ loggedInUser, setCurrentSong, setIsPlaying }) {
     if (!inviteTarget || !collaborator) return;
     try {
       await axios.post(
-        `http://localhost:3003/playlist/${inviteTarget}/invite`,
+        `http://100.48.75.157:3003/playlist/${inviteTarget}/invite`,
         { username: loggedInUser, collaborator }
       );
       setMessage(`✅ ${collaborator} added as collaborator!`);
@@ -76,7 +76,7 @@ function Playlist({ loggedInUser, setCurrentSong, setIsPlaying }) {
   const playSongFromPlaylist = async (song) => {
     setCurrentSong(song);
     setIsPlaying(true);
-    await axios.post(`http://localhost:3001/play/${song._id}`);
+    await axios.post(`http://100.48.75.157:3001/play/${song._id}`);
   };
 
   const ownedPlaylists = playlists.filter(p => p.owner === loggedInUser);
@@ -276,7 +276,7 @@ function Playlist({ loggedInUser, setCurrentSong, setIsPlaying }) {
                   }}
                 >
                   <img
-                    src={`http://localhost:3001/images/${song.cover}`}
+                    src={`http://100.48.75.157:3001/images/${song.cover}`}
                     alt="cover"
                     style={{ width: '52px', height: '52px', border: '2px solid #00ffcc44', flexShrink: 0 }}
                   />

@@ -16,7 +16,7 @@ function User({ setLoggedInUser, onLogin, loggedInUser }) {
 
   const fetchStats = async () => {
     try {
-      const res = await axios.get(`http://localhost:3002/stats/${localUser}`);
+      const res = await axios.get(`http://100.48.75.157:3002/stats/${localUser}`);
       setStats(res.data);
     } catch (err) {
       console.error("Failed to fetch stats", err);
@@ -25,7 +25,7 @@ function User({ setLoggedInUser, onLogin, loggedInUser }) {
 
   const register = async () => {
     try {
-      const res = await axios.post('http://localhost:3002/register', { username, password });
+      const res = await axios.post('http://100.48.75.157:3002/register', { username, password });
       setMessage(res.data);
     } catch {
       setMessage("Error registering user");
@@ -34,7 +34,7 @@ function User({ setLoggedInUser, onLogin, loggedInUser }) {
 
   const login = async () => {
     try {
-      const res = await axios.post('http://localhost:3002/login', { username, password });
+      const res = await axios.post('http://100.48.75.157:3002/login', { username, password });
       if (res.data === "Login successful") {
         setLoggedInUser(username); 
         setLocalUser(username);    

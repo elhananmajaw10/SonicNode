@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb://localhost:27017/music');
+mongoose.connect('mongodb://100.48.75.157:27017/music');
 
 // Create playlist
 app.post('/playlist', async (req, res) => {

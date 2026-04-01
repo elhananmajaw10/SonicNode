@@ -66,11 +66,11 @@ function App() {
 
     try {
       // 1. Increment Play Count
-      await axios.post(`http://localhost:3001/play/${song._id}`);
+      await axios.post(`http://100.48.75.157:3001/play/${song._id}`);
 
       // 2. Save to history if logged in
       if (loggedInUser) {
-        await axios.post('http://localhost:3002/history', {
+        await axios.post('http://100.48.75.157:3002/history', {
           username: loggedInUser,
           songId: song._id,
           title: song.title,
@@ -81,7 +81,7 @@ function App() {
       }
 
       // 3. Fetch New Recommendations based on this new song
-      const rec = await axios.get(`http://localhost:3004/recommend/${song._id}`);
+      const rec = await axios.get(`http://100.48.75.157:3004/recommend/${song._id}`);
       const upNextSongs = rec.data.filter(s => s._id !== song._id);
       
       setRecommendations(upNextSongs);
@@ -241,7 +241,7 @@ function App() {
             <div className="now-playing-panel">
               <div className="now-playing-header">Now Playing</div>
               <img
-                src={`http://localhost:3001/images/${currentSong.cover}`}
+                src={`http://100.48.75.157:3001/images/${currentSong.cover}`}
                 alt="cover"
                 className="now-playing-cover"
               />
@@ -260,7 +260,7 @@ function App() {
         <div className="player">
 
           <div className="player-left">
-            <img src={`http://localhost:3001/images/${currentSong.cover}`} alt="cover" />
+            <img src={`http://100.48.75.157:3001/images/${currentSong.cover}`} alt="cover" />
             <div className="song-meta">
               <div className="player-title">{currentSong.title}</div>
               <div className="player-artist">{currentSong.artist}</div>
@@ -341,7 +341,7 @@ function App() {
             }}
           >
             <source
-              src={`http://localhost:3001/uploads/${currentSong.file}`}
+              src={`http://100.48.75.157:3001/uploads/${currentSong.file}`}
               type="audio/mpeg"
             />
           </audio>
@@ -378,7 +378,7 @@ function App() {
 
             <img
               className="now-cover"
-              src={`http://localhost:3001/images/${currentSong.cover}`}
+              src={`http://100.48.75.157:3001/images/${currentSong.cover}`}
               alt="cover"
             />
 

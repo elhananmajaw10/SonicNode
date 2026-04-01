@@ -23,7 +23,7 @@ function Recommendation({ handlePlaySong }) {
       setLoading(true);
       try {
         // Fetch from your existing mood endpoint!
-        const res = await axios.get(`http://localhost:3001/mood/${currentMood.label.toLowerCase()}`);
+        const res = await axios.get(`http://100.48.75.157:3001/mood/${currentMood.label.toLowerCase()}`);
         setSongs(res.data);
       } catch (err) {
         console.error("Failed to fetch tuner recommendations");
@@ -82,7 +82,7 @@ function Recommendation({ handlePlaySong }) {
         <div className="rec-grid">
           {songs.map((song) => (
             <div key={song._id} className="card song-card" style={{ borderLeft: `3px solid ${currentMood.color}` }}>
-              <img src={`http://localhost:3001/images/${song.cover}`} alt="cover" />
+              <img src={`http://100.48.75.157:3001/images/${song.cover}`} alt="cover" />
               <div className="song-meta">
                 <div className="song-title">{song.title}</div>
                 <div className="song-artist">{song.artist}</div>

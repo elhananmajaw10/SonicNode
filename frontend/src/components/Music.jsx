@@ -17,7 +17,7 @@ function Music({
   const [isPersonal, setIsPersonal] = useState(false);
 
   const fetchSongs = async () => {
-    const res = await axios.get('http://localhost:3001/songs');
+    const res = await axios.get('http://100.48.75.157:3001/songs');
     setSongs(res.data);
     setSelectedMood(null);
     return res.data;
@@ -28,7 +28,7 @@ function Music({
 
     if (loggedInUser) {
       try {
-        const statRes = await axios.get(`http://localhost:3002/stats/${loggedInUser}`);
+        const statRes = await axios.get(`http://100.48.75.157:3002/stats/${loggedInUser}`);
         if (statRes.data && !statRes.data.empty) {
           const userTop = allSongs.find(s => s.title === statRes.data.mostPlayed);
           if (userTop) {
@@ -43,7 +43,7 @@ function Music({
     }
 
     try {
-      const globalRes = await axios.get('http://localhost:3001/song-of-the-day');
+      const globalRes = await axios.get('http://100.48.75.157:3001/song-of-the-day');
       setSotd(globalRes.data);
       setIsPersonal(false);
     } catch (err) {
@@ -61,14 +61,14 @@ function Music({
 
   const searchSongs = async () => {
     if (!query) return fetchSongs();
-    const res = await axios.get(`http://localhost:3001/search?q=${query}`);
+    const res = await axios.get(`http://100.48.75.157:3001/search?q=${query}`);
     setSongs(res.data);
   };
 
   const filterByMood = async (mood) => {
     setSelectedMood(mood);
     setSelectedGenre(null);
-    const res = await axios.get(`http://localhost:3001/mood/${mood}`);
+    const res = await axios.get(`http://100.48.75.157:3001/mood/${mood}`);
     setSongs(res.data);
   };
 
@@ -89,7 +89,7 @@ function Music({
           </div>
 
           <div className="sotd-content">
-            <img src={`http://localhost:3001/images/${sotd.cover}`} alt="Cover" />
+            <img src={`http://100.48.75.157:3001/images/${sotd.cover}`} alt="Cover" />
             <div className="sotd-info">
               <h3>{sotd.title}</h3>
               <p>{sotd.artist}</p>
@@ -182,7 +182,7 @@ function Music({
       {filteredSongs.map((song) => (
         <div key={song._id} className="card song-card">
           <img
-            src={`http://localhost:3001/images/${song.cover}`}
+            src={`http://100.48.75.157:3001/images/${song.cover}`}
             alt="cover"
           />
           <div className="song-meta">
@@ -193,7 +193,7 @@ function Music({
               
               <button onClick={() => handlePlaySong(song)}>Play</button>
               
-              <a href={`http://localhost:3001/uploads/${song.file}`}
+              <a href={`http://100.48.75.157:3001/uploads/${song.file}`}
                 target="_blank"
                 rel="noreferrer"
                 className="download-btn"
