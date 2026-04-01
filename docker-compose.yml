@@ -21,6 +21,10 @@ services:
     ports:
       - "3001:3001"
     restart: always
+    volumes:
+      - ./music-service/uploads:/app/uploads
+    depends_on:
+      - mongodb
 
   user-service:
     build: ./user-service
