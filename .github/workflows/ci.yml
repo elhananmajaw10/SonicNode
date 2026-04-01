@@ -43,3 +43,16 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    # 10. Configure the server using Ansible
+    - name: Run Ansible Playbook
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+        ANSIBLE_HOST_KEY_CHECKING: False
+      run: |
+        # Recreate the private key from the GitHub vault
+        echo "$SSH_PRIVATE_KEY" > sonicnode_key
+        chmod 600 sonicnode_key
+        
+        # Run the playbook
+        ansible-playbook -i ansible/inventory.ini ansible/playbook.yml

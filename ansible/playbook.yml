@@ -1,0 +1,12 @@
+---
+- name: Configure SonicNode Server
+  hosts: sonicnode
+  become: yes
+
+  tasks:
+    - name: Ping the server to check connection
+      ping:
+
+    - name: Update server software packages
+      apt:
+        update_cache: yes
