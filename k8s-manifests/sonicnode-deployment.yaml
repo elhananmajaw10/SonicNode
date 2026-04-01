@@ -1,0 +1,209 @@
+---
+# 🗄️ MONGODB DEPLOYMENT & SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
+---
+# 🎵 MUSIC SERVICE DEPLOYMENT & SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-service-deployment
+spec:
+  replicas: 2 # Clustering enabled for high availability!
+  selector:
+    matchLabels:
+      app: music-service
+  template:
+    metadata:
+      labels:
+        app: music-service
+    spec:
+      containers:
+      - name: music-service
+        image: elhananmajaw10/sonicnode-music-service:latest
+        ports:
+        - containerPort: 3001
+        livenessProbe: # Health checks enabled!
+          httpGet:
+            path: /health
+            port: 3001
+          initialDelaySeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: music-service
+spec:
+  selector:
+    app: music-service
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+
+---
+# 👤 USER SERVICE DEPLOYMENT & SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: elhananmajaw10/sonicnode-user-service:latest
+        ports:
+        - containerPort: 3002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+spec:
+  selector:
+    app: user-service
+  ports:
+    - protocol: TCP
+      port: 3002
+      targetPort: 3002
+
+---
+# 📜 PLAYLIST SERVICE DEPLOYMENT & SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: playlist-service-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: playlist-service
+  template:
+    metadata:
+      labels:
+        app: playlist-service
+    spec:
+      containers:
+      - name: playlist-service
+        image: elhananmajaw10/sonicnode-playlist-service:latest
+        ports:
+        - containerPort: 3003 # <-- Verify this port!
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: playlist-service
+spec:
+  selector:
+    app: playlist-service
+  ports:
+    - protocol: TCP
+      port: 3003
+      targetPort: 3003
+
+---
+# 🎯 RECOMMENDATION SERVICE DEPLOYMENT & SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommendation-service-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: recommendation-service
+  template:
+    metadata:
+      labels:
+        app: recommendation-service
+    spec:
+      containers:
+      - name: recommendation-service
+        image: elhananmajaw10/sonicnode-recommendation-service:latest
+        ports:
+        - containerPort: 3004 # <-- Verify this port!
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommendation-service
+spec:
+  selector:
+    app: recommendation-service
+  ports:
+    - protocol: TCP
+      port: 3004
+      targetPort: 3004
+
+---
+# 💻 FRONTEND DEPLOYMENT & SERVICE (LoadBalancer)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: elhananmajaw10/sonicnode-frontend:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: LoadBalancer # Exposes the frontend to the internet
+  selector:
+    app: frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
