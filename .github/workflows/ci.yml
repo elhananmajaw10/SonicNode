@@ -27,22 +27,22 @@ jobs:
     - name: Build User Service
       run: docker build -t sonicnode-user ./user-service
 
-    # 7. Install Terraform on the GitHub server
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
+    # # 7. Install Terraform on the GitHub server
+    # - name: Setup Terraform
+    #   uses: hashicorp/setup-terraform@v3
 
-    # 8. Initialize the Terraform script
-    - name: Terraform Init
-      run: terraform init
-      working-directory: ./terraform
+    # # 8. Initialize the Terraform script
+    # - name: Terraform Init
+    #   run: terraform init
+    #   working-directory: ./terraform
 
-    # 9. Tell AWS to build the server using your secret keys!
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
-      working-directory: ./terraform
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    # # 9. Tell AWS to build the server using your secret keys!
+    # - name: Terraform Apply
+    #   run: terraform apply -auto-approve
+    #   working-directory: ./terraform
+    #   env:
+    #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     # 10. Configure the server using Ansible
     - name: Run Ansible Playbook
